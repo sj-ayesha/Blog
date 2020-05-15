@@ -2,6 +2,8 @@ import * as postActions from './post.actions';
 import { Post } from '../post.model';
 import * as fromRoot from '../../state/app-state';
 
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+
 export interface PostState {
   posts: Post[];
   loading: boolean;
@@ -50,3 +52,25 @@ export function postReducer(state = initialState, action: postActions.ActionPost
     }
   }
 }
+
+const getPostFeatureState = createFeatureSelector<PostState>(
+  'posts'
+);
+
+export const getPosts = createSelector(
+  getPostFeatureState,
+  (state: PostState) => state.posts
+);
+
+export const getPostsLoading = createSelector(
+  getPostFeatureState, (state: PostState) => state.loading
+);
+
+export const getPostsLoaded = createSelector(
+  getPostFeatureState, (state: PostState) => state.loaded
+);
+
+export const getError = createSelector(
+  getPostFeatureState, (state: PostState) => state.error
+);
+

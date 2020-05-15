@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import * as postActions from '../state/post.actions';
+
+import * as fromPost from '../state/post.reducer';
+import { Post } from '../post.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-post-list',
@@ -10,13 +14,13 @@ import * as postActions from '../state/post.actions';
 })
 export class PostListComponent implements OnInit {
 
-  posts;
+  posts: Observable<Post[]>;
 
-  constructor(private store: Store<any>) { }
+  constructor(private store: Store<fromPost.AppState>) { }
 
   ngOnInit(): void {
     this.store.dispatch(new postActions.LoadPosts());
-    this.store.subscribe(state => (this.posts = state.posts.posts));
+    this.posts = this.store.pipe(select(fromPost.getPosts));
   }
 
 }
