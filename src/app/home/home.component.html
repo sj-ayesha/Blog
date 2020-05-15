@@ -1,0 +1,42 @@
+<div class="container">
+  <section class="section-image-text border border-top-0 border-right-0 border-left-0">
+    <div class="section-image text-center">
+      <img src="../../../assets/img/girl.png" alt="girl-image" width="275rem">
+    </div>
+    <div class="section-text text-center">
+      <h1>Hi.</h1>
+      <h2>I am Jane Doe</h2>
+      <h2>I am a <span class="font-weight-bold">developer</span></h2>
+    </div>
+  </section>
+
+  <section class="section-posts">
+    <div class="section-heading text-center">
+      <h3>Latest from Blog</h3>
+    </div>
+    <div class="posts-list">
+      <div class="post">
+        <div class="date">
+          <p>11 <span>May</span></p>
+        </div>
+        <div class="title">
+          <h4>Title</h4>
+        </div>
+      </div>
+    </div>
+    <div class="section-button text-center">
+      <a [routerLink]="['posts']" class="btn btn-outline-dark" role="button" aria-pressed="true">See all posts</a>
+    </div>
+  </section>
+</div>
+
+<!-- <ng-template #error>
+  <h2>{{(error$ | async)?.message}}</h2>
+</ng-template>
+
+<ng-template #noItems>
+  <ul>
+    <li style="max-width:250px;margin:0 auto;">No items found. Are you sure there's <em>nothing</em> you want?
+    </li>
+  </ul>
+</ng-template> -->
