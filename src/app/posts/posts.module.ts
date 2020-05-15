@@ -8,8 +8,10 @@ import { CarouselComponent } from '../components/carousel/carousel.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
-import { postReducer } from "./state/post.reducer";
+import { postReducer } from './state/post.reducer';
+import { PostEffect } from './state/post.effects';
 
 const postRoutes: Routes = [{path: '', component: PostComponent}];
 
@@ -18,7 +20,8 @@ const postRoutes: Routes = [{path: '', component: PostComponent}];
   imports: [
     CommonModule,
     RouterModule.forChild(postRoutes),
-    StoreModule.forFeature('posts', postReducer)
+    StoreModule.forFeature('posts', postReducer),
+    EffectsModule.forFeature([PostEffect])
   ]
 })
 export class PostsModule { }

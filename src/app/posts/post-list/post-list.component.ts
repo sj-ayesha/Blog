@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Store } from '@ngrx/store';
+import * as postActions from '../state/post.actions';
 
 @Component({
   selector: 'app-post-list',
@@ -14,7 +15,7 @@ export class PostListComponent implements OnInit {
   constructor(private store: Store<any>) { }
 
   ngOnInit(): void {
-    this.store.dispatch({type: 'LOAD_POSTS'})
+    this.store.dispatch(new postActions.LoadPosts());
     this.store.subscribe(state => (this.posts = state.posts.posts));
   }
 
