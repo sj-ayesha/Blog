@@ -7,6 +7,9 @@ import { PostListComponent } from './post-list/post-list.component';
 import { CarouselComponent } from '../components/carousel/carousel.component';
 
 import { RouterModule, Routes } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+
+import { postReducer } from "./state/post.reducer";
 
 const postRoutes: Routes = [{path: '', component: PostComponent}];
 
@@ -15,6 +18,7 @@ const postRoutes: Routes = [{path: '', component: PostComponent}];
   imports: [
     CommonModule,
     RouterModule.forChild(postRoutes),
+    StoreModule.forFeature('posts', postReducer)
   ]
 })
 export class PostsModule { }
