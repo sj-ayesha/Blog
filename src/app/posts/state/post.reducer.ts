@@ -3,24 +3,31 @@ import { Post } from '../post.model';
 import * as fromRoot from '../../state/app-state';
 
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
-export interface PostState {
-  posts: Post[];
+export interface PostState extends EntityState<Post> {
+  selectedPostId: number | null;
   loading: boolean;
   loaded: boolean;
   error: string;
 }
 
-export interface AppState extends fromRoot.AppState {
-  posts: PostState;
-}
+export const postAdapter: EntityAdapter<Post> = createEntityAdapter<Post>();
 
-export const initialState: PostState = {
-  posts: [],
+export const defaultPost: PostState = {
+  ids: [],
+  entities: {},
+  selectedPostId: null,
   loading: false,
   loaded: false,
   error: ''
 };
+
+export interface AppState extends fromRoot.AppState {
+  posts: PostState;
+}
+
+export const initialState = postAdapter.getInitialState(defaultPost);
 
 export function postReducer(state = initialState, action: postActions.ActionPosts): PostState {
   switch (action.type) {
@@ -31,17 +38,16 @@ export function postReducer(state = initialState, action: postActions.ActionPost
       }
 
     case postActions.PostActionTypes.LOAD_POSTS_SUCCESS:
-      return {
+      return postAdapter.addAll(action.payload, {
         ...state,
         loading: false,
-        loaded: true,
-        posts: action.payload
-      }
+        loaded: true
+      });
 
     case postActions.PostActionTypes.LOAD_POSTS_FAILURE:
       return {
         ...state,
-        posts: [],
+        entities: {},
         loading: false,
         loaded: false,
         error: action.payload
@@ -59,7 +65,7 @@ const getPostFeatureState = createFeatureSelector<PostState>(
 
 export const getPosts = createSelector(
   getPostFeatureState,
-  (state: PostState) => state.posts
+  postAdapter.getSelectors().selectAll
 );
 
 export const getPostsLoading = createSelector(
