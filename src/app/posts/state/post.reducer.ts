@@ -12,6 +12,10 @@ export interface PostState extends EntityState<Post> {
   error: string;
 }
 
+export interface AppState extends fromRoot.AppState {
+  post: PostState;
+}
+
 export const postAdapter: EntityAdapter<Post> = createEntityAdapter<Post>();
 
 export const defaultPost: PostState = {
@@ -23,20 +27,13 @@ export const defaultPost: PostState = {
   error: ''
 };
 
-export interface AppState extends fromRoot.AppState {
-  posts: PostState;
-}
+
 
 export const initialState = postAdapter.getInitialState(defaultPost);
 
 export function postReducer(state = initialState, action: postActions.ActionPosts): PostState {
   switch (action.type) {
-    case postActions.PostActionTypes.LOAD_POSTS:
-      return {
-        ...state,
-        loading: true
-      }
-
+    // -------LOAD POSTS REDUCER---------//
     case postActions.PostActionTypes.LOAD_POSTS_SUCCESS:
       return postAdapter.addAll(action.payload, {
         ...state,
@@ -51,7 +48,52 @@ export function postReducer(state = initialState, action: postActions.ActionPost
         loading: false,
         loaded: false,
         error: action.payload
-      }
+      };
+
+    // -------LOAD POST REDUCER---------//
+    case postActions.PostActionTypes.LOAD_POST_SUCCESS:
+      return postAdapter.addOne(action.payload, {
+        ...state,
+        selectedPostId: action.payload.id
+      });
+
+    case postActions.PostActionTypes.LOAD_POST_FAILURE:
+      return {
+        ...state,
+        error: action.payload
+      };
+
+    // -------ADD POST REDUCER---------//
+    case postActions.PostActionTypes.ADD_POST_SUCCESS:
+      return postAdapter.addOne(action.payload, state);
+
+    case postActions.PostActionTypes.ADD_POST_FAILURE:
+      return {
+        ...state,
+        error: action.payload
+      };
+
+    // -------UPDATE POST REDUCER---------//
+    case postActions.PostActionTypes.UPDATE_POST_SUCCESS:
+      return postAdapter.updateOne(action.payload, state);
+
+    case postActions.PostActionTypes.UPDATE_POST_FAILURE:
+      return {
+        ...state,
+        error: action.payload
+      };
+
+    // -------REMOVE POST REDUCER---------//
+    case postActions.PostActionTypes.DELETE_POST_SUCCESS:
+      return postAdapter.removeOne(action.payload, state);
+
+    case postActions.PostActionTypes.DELETE_POST_FAILURE:
+      return {
+        ...state,
+        error: action.payload
+      };
+
+
 
     default: {
       return state;
@@ -60,7 +102,7 @@ export function postReducer(state = initialState, action: postActions.ActionPost
 }
 
 const getPostFeatureState = createFeatureSelector<PostState>(
-  'posts'
+  'post'
 );
 
 export const getPosts = createSelector(
@@ -78,5 +120,17 @@ export const getPostsLoaded = createSelector(
 
 export const getError = createSelector(
   getPostFeatureState, (state: PostState) => state.error
+);
+
+// Selectors to add the selected post in the edit component
+export const getCurrentPostId = createSelector(
+  getPostFeatureState,
+  (state: PostState) => state.selectedPostId
+);
+
+export const getCurrentPost = createSelector(
+  getPostFeatureState,
+  getCurrentPostId,
+  state => state.entities[state.selectedPostId]
 );
 

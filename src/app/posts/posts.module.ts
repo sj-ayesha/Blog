@@ -12,6 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { postReducer } from './state/post.reducer';
 import { PostEffect } from './state/post.effects';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const postRoutes: Routes = [{path: '', component: PostComponent}];
 
@@ -19,6 +20,8 @@ const postRoutes: Routes = [{path: '', component: PostComponent}];
   declarations: [PostComponent, PostAddComponent, PostEditComponent, PostListComponent, CarouselComponent],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(postRoutes),
     StoreModule.forFeature('posts', postReducer),
     EffectsModule.forFeature([PostEffect])

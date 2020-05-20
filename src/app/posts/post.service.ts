@@ -22,18 +22,18 @@ export class PostService {
     return this.http.get<Post>(`${this.postsUrl}/${payload}`);
   }
 
-  createCustomer(payload: Post): Observable<Post> {
+  createPost(payload: Post): Observable<Post> {
     return this.http.post<Post>(this.postsUrl, payload);
   }
 
-  updateCustomer(post: Post): Observable<Post> {
+  updatePost(post: Post): Observable<Post> {
     return this.http.patch<Post>(
       `${this.postsUrl}/${post.id}`,
       post
     );
   }
 
-  deleteCustomer(payload: number) {
+  deletePost(payload: number) {
     return this.http.delete(`${this.postsUrl}/${payload}`);
   }
 }

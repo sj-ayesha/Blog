@@ -28,5 +28,81 @@ export class PostEffect {
         catchError(err => of(new postActions.LoadPostsFailure(err)))
       )
     )
-  )
+  );
+
+  // -------------LOAD POST EFFECT----------------//
+  @Effect()
+  loadPost$: Observable<Action> = this.actions$.pipe(
+    ofType<postActions.LoadPost>(
+      postActions.PostActionTypes.LOAD_POST
+    ),
+    mergeMap((action: postActions.LoadPost) =>
+      this.postService.getPostById(action.payload).pipe(
+        map(
+          (post: Post) =>
+            new postActions.LoadPostSuccess(post)
+        ),
+        catchError(err => of(new postActions.LoadPostFailure(err))
+        )
+      )
+    )
+  );
+
+  // -------------CREATE POST EFFECT----------------//
+  @Effect()
+  createPost$: Observable<Action> = this.actions$.pipe(
+    ofType<postActions.AddPost>(
+      postActions.PostActionTypes.ADD_POST
+    ),
+    map((action: postActions.AddPost) => action.payload),
+    mergeMap((post: Post) =>
+      this.postService.createPost(post).pipe(
+        map(
+          (newPost: Post) =>
+            new postActions.AddPostSuccess(newPost)
+        ),
+        catchError(err => of(new postActions.AddPostFailure(err))
+        )
+      )
+    )
+  );
+
+  // -------------UPDATE POST EFFECT----------------//
+  @Effect()
+  updatePost$: Observable<Action> = this.actions$.pipe(
+    ofType<postActions.UpdatePost>(
+      postActions.PostActionTypes.UPDATE_POST
+    ),
+    map((action: postActions.UpdatePost) => action.payload),
+    mergeMap((post: Post) =>
+      this.postService.updatePost(post).pipe(
+        map(
+          (updatePost: Post) =>
+            new postActions.UpdatePostSuccess({
+              id: updatePost.id,
+              changes: updatePost
+            })
+        ),
+        catchError(err => of(new postActions.UpdatePostFailure(err))
+        )
+      )
+    )
+  );
+
+  // -------------DELETE POST EFFECT----------------//
+  @Effect()
+  deletePost$: Observable<Action> = this.actions$.pipe(
+    ofType<postActions.DeletePost>(
+      postActions.PostActionTypes.DELETE_POST
+    ),
+    map((action: postActions.DeletePost) => action.payload),
+    mergeMap((id: number) =>
+      this.postService.deletePost(id).pipe(
+        map(() =>new postActions.DeletePostSuccess(id)
+        ),
+        catchError(err => of(new postActions.DeletePostFailure(err))
+        )
+      )
+    )
+  );
 }
