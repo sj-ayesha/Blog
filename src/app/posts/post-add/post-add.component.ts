@@ -13,6 +13,7 @@ import { Post } from '../post.model';
 export class PostAddComponent implements OnInit {
 
   postForm: FormGroup;
+  showAddModal: boolean = false;
 
   constructor(private fb: FormBuilder, private store: Store<fromPost.AppState>) { }
 

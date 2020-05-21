@@ -7,7 +7,15 @@
       <input type="text" name="description" class="form-control" formControlName="description" placeholder="Description">
     </div>
     <div class="col">
-      <button type="submit" class="btn btn-outline-secondary">Add Post</button>
+      <button type="submit" (click)="openModal = !openModal" class="btn btn-outline-secondary">Add Post</button>
     </div>
   </div>
 </form>
+
+<div *ngIf="showAddModal">
+  <app-modal [(visible)]="openModal">
+      <div class="thank-you-pop">
+          <h1>Thank You!</h1>
+      </div>
+  </app-modal>
+</div>

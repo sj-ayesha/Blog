@@ -13,11 +13,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { postReducer } from './state/post.reducer';
 import { PostEffect } from './state/post.effects';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalComponent } from '../components/modal/modal.component';
 
-const postRoutes: Routes = [{path: '', component: PostComponent}];
+const postRoutes: Routes = [{ path: '', component: PostComponent }];
 
 @NgModule({
-  declarations: [PostComponent, PostAddComponent, PostEditComponent, PostListComponent, CarouselComponent],
+  declarations: [PostComponent, PostAddComponent, PostEditComponent, PostListComponent, CarouselComponent, ModalComponent],
   imports: [
     CommonModule,
     FormsModule,
