@@ -71,6 +71,7 @@ export class AddPostSuccess implements Action {
 
   constructor(public payload: Post) { }
 }
+
 export class AddPostFailure implements Action {
   readonly type = PostActionTypes.ADD_POST_FAILURE;
 

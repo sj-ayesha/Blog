@@ -19,13 +19,14 @@ export class PostEffect {
     ofType<postActions.LoadPosts>(
       postActions.PostActionTypes.LOAD_POSTS
     ),
-    mergeMap((actions: postActions.LoadPosts) =>
+    mergeMap((action: postActions.LoadPosts) =>
       this.postService.getPosts().pipe(
         map(
           (posts: Post[]) =>
             new postActions.LoadPostsSuccess(posts)
         ),
-        catchError(err => of(new postActions.LoadPostsFailure(err)))
+        catchError(err => of(new postActions.LoadPostsFailure(err))
+        )
       )
     )
   );
@@ -48,15 +49,15 @@ export class PostEffect {
     )
   );
 
-  // -------------CREATE POST EFFECT----------------//
+  // -------------ADD POST EFFECT----------------//
   @Effect()
-  createPost$: Observable<Action> = this.actions$.pipe(
+  addPost$: Observable<Action> = this.actions$.pipe(
     ofType<postActions.AddPost>(
       postActions.PostActionTypes.ADD_POST
     ),
     map((action: postActions.AddPost) => action.payload),
     mergeMap((post: Post) =>
-      this.postService.createPost(post).pipe(
+      this.postService.addPost(post).pipe(
         map(
           (newPost: Post) =>
             new postActions.AddPostSuccess(newPost)
@@ -66,7 +67,6 @@ export class PostEffect {
       )
     )
   );
-
   // -------------UPDATE POST EFFECT----------------//
   @Effect()
   updatePost$: Observable<Action> = this.actions$.pipe(

@@ -22,7 +22,7 @@ export class PostService {
     return this.http.get<Post>(`${this.postsUrl}/${payload}`);
   }
 
-  createPost(payload: Post): Observable<Post> {
+  addPost(payload: Post): Observable<Post> {
     return this.http.post<Post>(this.postsUrl, payload);
   }
 

@@ -93,8 +93,6 @@ export function postReducer(state = initialState, action: postActions.ActionPost
         error: action.payload
       };
 
-
-
     default: {
       return state;
     }
@@ -102,7 +100,7 @@ export function postReducer(state = initialState, action: postActions.ActionPost
 }
 
 const getPostFeatureState = createFeatureSelector<PostState>(
-  'post'
+  'posts'
 );
 
 export const getPosts = createSelector(
