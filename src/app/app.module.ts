@@ -12,6 +12,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './components/modal/modal.component';
+import { PostEffect } from './posts/state/post.effects';
+import { postReducer } from './posts/state/post.reducer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,9 +23,12 @@ import { ModalComponent } from './components/modal/modal.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({}),
+    EffectsModule.forRoot([PostEffect]),
+    StoreModule.forRoot({
+      post: postReducer,
+    }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([]),
+    // EffectsModule.forRoot([]),
     HttpClientModule
   ],
   providers: [],

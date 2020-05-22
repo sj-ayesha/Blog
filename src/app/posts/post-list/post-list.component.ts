@@ -6,7 +6,7 @@ import * as postActions from '../state/post.actions';
 import * as fromPost from '../state/post.reducer';
 import { Post } from '../post.model';
 import { Observable } from 'rxjs';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
@@ -17,7 +17,7 @@ export class PostListComponent implements OnInit {
   posts: Observable<Post[]>;
   error$: Observable<String>;
 
-  constructor(private store: Store<fromPost.AppState>) { }
+  constructor(private store: Store<fromPost.AppState>, private router: Router) { }
 
   ngOnInit(): void {
     this.store.dispatch(new postActions.LoadPosts);
@@ -33,6 +33,10 @@ export class PostListComponent implements OnInit {
 
   editPost(post: Post) {
     this.store.dispatch(new postActions.LoadPost(post.id));
+  }
+
+  btnClick() {
+    this.router.navigateByUrl('/postadd');
   }
 
 }
