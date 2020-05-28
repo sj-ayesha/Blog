@@ -14,13 +14,17 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
 
-  posts: Observable<Post[]>;
+  posts: Post[];
 
   constructor(private store: Store<fromPost.AppState>) { }
 
   ngOnInit(): void {
     this.store.dispatch(new postActions.LoadPosts);
-    this.posts = this.store.pipe(select(fromPost.getPosts));
+    this.store.pipe(select(fromPost.getPosts)).subscribe(posts => {
+      this.posts = posts;
+      console.log('posts', posts);
+    });
+
   }
 
 }
