@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './components/modal/modal.component';
 import { PostEffect } from './posts/state/post.effects';
 import { postReducer } from './posts/state/post.reducer';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +26,7 @@ import { postReducer } from './posts/state/post.reducer';
     CommonModule,
     BrowserModule,
     AppRoutingModule,
+    NgbModule,
     StoreModule.forRoot({posts: postReducer}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([PostEffect]),

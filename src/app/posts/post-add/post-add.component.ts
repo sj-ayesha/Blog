@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, State, select } from '@ngrx/store';
 import * as postActions from '../state/post.actions';
 import * as fromPost from '../state/post.reducer';
 import { Post } from '../post.model';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-post-add',
@@ -13,9 +14,8 @@ import { Post } from '../post.model';
 export class PostAddComponent implements OnInit {
 
   postForm: FormGroup;
-  showAddModal: boolean = false;
 
-  constructor(private fb: FormBuilder, private store: Store<fromPost.AppState>) { }
+  constructor(private fb: FormBuilder, private store: Store<fromPost.AppState>, public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
     this.postForm = this.fb.group({
@@ -42,6 +42,7 @@ export class PostAddComponent implements OnInit {
     this.store.dispatch(new postActions.AddPost(newPost));
 
     this.postForm.reset();
+    this.activeModal.close('Close click')
   }
 
 }

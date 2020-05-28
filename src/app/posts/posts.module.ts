@@ -14,6 +14,7 @@ import { postReducer } from './state/post.reducer';
 import { PostEffect } from './state/post.effects';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from '../components/modal/modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const postRoutes: Routes = [{
   path: '', component: PostComponent, children: [{
@@ -27,6 +28,7 @@ const postRoutes: Routes = [{
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule,
     RouterModule.forChild(postRoutes),
     StoreModule.forFeature('posts', postReducer),
     EffectsModule.forFeature([PostEffect])

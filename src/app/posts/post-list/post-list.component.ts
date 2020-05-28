@@ -7,6 +7,9 @@ import * as fromPost from '../state/post.reducer';
 import { Post } from '../post.model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
+import { PostAddComponent } from '../post-add/post-add.component';
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
@@ -17,7 +20,7 @@ export class PostListComponent implements OnInit {
   posts: Observable<Post[]>;
   error$: Observable<String>;
 
-  constructor(private store: Store<fromPost.AppState>, private router: Router) { }
+  constructor(private store: Store<fromPost.AppState>, private router: Router,private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.store.dispatch(new postActions.LoadPosts);
@@ -37,6 +40,12 @@ export class PostListComponent implements OnInit {
 
   btnClick() {
     this.router.navigateByUrl('/postadd');
+  }
+
+  open() {
+    const modalRef = this.modalService.open(PostAddComponent);
+    modalRef.componentInstance.my_modal_title = 'I your title';
+    modalRef.componentInstance.my_modal_content = 'I am your content';
   }
 
 }
