@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(new postActions.LoadPosts);
     this.store.pipe(select(fromPost.getPosts)).subscribe(posts => {
       this.posts = posts;
-      console.log('posts', posts);
+      console.log('posts', posts.map(x => x.date));
     });
 
   }

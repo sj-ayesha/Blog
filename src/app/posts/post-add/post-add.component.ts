@@ -25,9 +25,18 @@ export class PostAddComponent implements OnInit {
   }
 
   addPost() {
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    const todayDate = new Date();
+    const getDay = todayDate.getDate();
+    const getMonths = monthNames[todayDate.getMonth()];
+    const getYear = todayDate.getFullYear();
+
     const newPost: Post = {
       title: this.postForm.get('title').value,
-      description: this.postForm.get('description').value
+      description: this.postForm.get('description').value,
+      date: todayDate
     };
 
     this.store.dispatch(new postActions.AddPost(newPost));

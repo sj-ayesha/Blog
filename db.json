@@ -19,6 +19,24 @@
       "title": "Hello World",
       "description": "testingggff",
       "id": 4
+    },
+    {
+      "title": "testDate",
+      "description": "testDate",
+      "date": "2020-05-28T07:16:26.710Z",
+      "id": 5
+    },
+    {
+      "title": "dateMonth",
+      "description": "dateMonth",
+      "date": "May",
+      "id": 6
+    },
+    {
+      "title": "getFulldateString",
+      "description": "getFullDateString",
+      "date": "28 May 2020",
+      "id": 7
     }
   ]
 }
