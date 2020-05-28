@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import * as postActions from '../state/post.actions';
 import * as fromPost from '../state/post.reducer';
 import { Post } from '../post.model';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-post-edit',
@@ -17,7 +18,7 @@ export class PostEditComponent implements OnInit {
 
   postFormEdit: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store<fromPost.AppState>) { }
+  constructor(private fb: FormBuilder, private store: Store<fromPost.AppState>,public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
     this.postFormEdit = this.fb.group({
