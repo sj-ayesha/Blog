@@ -73,3 +73,30 @@
     }
   }
 }
+
+.img-hover-zoom {
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
+/* Colorize-zoom Container */
+.img-hover-zoom--colorize img {
+  transition: transform .25s, visibility .25s ease-in;
+  filter: grayscale(0);
+}
+
+/* The Transformation */
+.img-hover-zoom--colorize:hover img {
+  filter: grayscale(75%);
+  transform: scale(1.1);
+}
+
+.center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: 900;
+}
