@@ -42,7 +42,7 @@ export class PostAddComponent implements OnInit {
     this.store.dispatch(new postActions.AddPost(newPost));
 
     this.postForm.reset();
-    this.activeModal.close('Close click')
+    this.activeModal.close('Close click');
   }
 
 }

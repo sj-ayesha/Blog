@@ -18,7 +18,7 @@ export class PostEditComponent implements OnInit {
 
   postFormEdit: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store<fromPost.AppState>,public activeModal: NgbActiveModal) { }
+  constructor(private fb: FormBuilder, private store: Store<fromPost.AppState>, public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
     this.postFormEdit = this.fb.group({
@@ -50,6 +50,7 @@ export class PostEditComponent implements OnInit {
     };
 
     this.store.dispatch(new postActions.UpdatePost(updatedPost));
+    this.activeModal.close('Close click');
   }
 
 }

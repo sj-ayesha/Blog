@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { PostAddComponent } from '../post-add/post-add.component';
+import { PostEditComponent } from '../post-edit/post-edit.component';
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
@@ -36,16 +37,14 @@ export class PostListComponent implements OnInit {
 
   editPost(post: Post) {
     this.store.dispatch(new postActions.LoadPost(post.id));
+    this.modalService.open(PostEditComponent);
   }
 
   btnClick() {
     this.router.navigateByUrl('/postadd');
   }
 
-  open() {
-    const modalRef = this.modalService.open(PostAddComponent);
-    modalRef.componentInstance.my_modal_title = 'I your title';
-    modalRef.componentInstance.my_modal_content = 'I am your content';
+  openAddModal() {
+    this.modalService.open(PostAddComponent);
   }
-
 }
