@@ -7,18 +7,6 @@
       "id": 5
     },
     {
-      "title": "dateMonth",
-      "description": "dateMonth",
-      "date": "May",
-      "id": 6
-    },
-    {
-      "title": "getFulldateString",
-      "description": "getFullDateString",
-      "date": "28 May 2020",
-      "id": 7
-    },
-    {
       "title": "bla bla",
       "description": "bla blaba",
       "date": "2020-05-28T12:07:33.475Z",

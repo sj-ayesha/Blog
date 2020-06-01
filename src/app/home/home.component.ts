@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { Store, select } from '@ngrx/store';
 import * as postActions from '../posts/state/post.actions';
@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
   posts: Post[];
 
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
   }
 
   rotateText() {
-    let TxtRotate = function(el, toRotate, period) {
+    const TxtRotate = function(el, toRotate, period) {
       this.toRotate = toRotate;
       this.el = el;
       this.loopNum = 0;
@@ -44,8 +44,8 @@ export class HomeComponent implements OnInit {
     };
 
     TxtRotate.prototype.tick = function() {
-      let i = this.loopNum % this.toRotate.length;
-      let fullTxt = this.toRotate[i];
+      const i = this.loopNum % this.toRotate.length;
+      const fullTxt = this.toRotate[i];
 
       if (this.isDeleting) {
         this.txt = fullTxt.substring(0, this.txt.length - 1);
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
         this.txt = fullTxt.substring(0, this.txt.length + 1);
       }
 
-      this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+      this.el.innerHTML = "<span class='wrap'>"+this.txt+"</span>";
 
       let that = this;
       let delta = 300 - Math.random() * 100;
@@ -69,24 +69,24 @@ export class HomeComponent implements OnInit {
         delta = 500;
       }
 
-      setTimeout(function() {
+      setTimeout(() => {
         that.tick();
       }, delta);
     };
 
-    window.onload = function() {
-      let elements = document.getElementsByClassName('txt-rotate');
+    window.onload = () => {
+      const elements = document.getElementsByClassName('txt-rotate');
       for (let i=0; i<elements.length; i++) {
-        let toRotate = elements[i].getAttribute('data-rotate');
-        let period = elements[i].getAttribute('data-period');
+        const toRotate = elements[i].getAttribute('data-rotate');
+        const period = elements[i].getAttribute('data-period');
         if (toRotate) {
-          new TxtRotate(elements[i], JSON.parse(toRotate), period);
+          return new TxtRotate(elements[i], JSON.parse(toRotate), period);
         }
       }
       // INJECT CSS
-      let css = document.createElement("style");
-      css.type = "text/css";
-      css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+      const css = document.createElement('style');
+      css.type = 'text/css';
+      css.innerHTML = '.txt-rotate > .wrap { border-right: 0.08em solid #666 }';
       document.body.appendChild(css);
     };
   }
